@@ -1,0 +1,15 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr "This module sets the path and environment variables for petsc-3.9.4"
+    puts stderr "     see http://www.mcs.anl.gov/petsc/ for more information      "
+    puts stderr ""
+}
+module-whatis "PETSc - Portable, Extensible Toolkit for Scientific Computation"
+
+set petsc_dir   "/cygdrive/z/code/third_party/petsc-3.9.4"
+set petsc_arch  "win64_vs2017_release"
+
+setenv PETSC_ARCH "$petsc_arch"
+setenv PETSC_DIR "$petsc_dir"
+prepend-path PATH "/cygdrive/z/code/third_party/petsc-3.9.4/win64_vs2017_release/bin:/cygdrive/z/code/third_party/petsc-3.9.4/bin"

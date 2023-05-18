@@ -1,0 +1,35 @@
+shared_install: 
+	-@echo "Now to check if the libraries are working do:"
+	-@echo "make PETSC_DIR=${PETSC_DIR} PETSC_ARCH=${PETSC_ARCH} check"
+	-@echo "========================================="
+
+libc: ${LIBNAME}(${OBJSC})
+
+libcxx: ${LIBNAME}(${OBJSCXX})
+
+libcu: ${LIBNAME}(${OBJSCU})
+
+libf: ${OBJSF}
+	-${AR} ${AR_FLAGS} ${LIBNAME} ${OBJSF}
+
+.F.o: 
+	-@echo "Your system was not configured for Fortran use"
+	-@echo "  Check configure.log under the checkFortranCompiler test for the specific failure"
+	-@echo "  You can reconfigure using --with-fc=<usable compiler> to enable Fortran"
+
+libmesh-build: 
+
+libmesh-install: 
+
+mpi4py-build: 
+
+mpi4py-install: 
+
+petsc4py-build: 
+
+petsc4py-install: 
+
+slepc-build: 
+
+slepc-install: 
+

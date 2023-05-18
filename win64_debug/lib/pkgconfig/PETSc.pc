@@ -1,0 +1,15 @@
+prefix=/cygdrive/z/code/third_party/petsc-3.9.4
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=/cygdrive/z/code/third_party/petsc-3.9.4/win64_vs2017_debug/lib
+ccompiler=/cygdrive/z/code/third_party/petsc-3.9.4/lib/petsc/bin/win32fe/win32fe cl
+cflags_extra=-Od -RTC1 -MTd
+cflags_dep=
+ldflag_rpath=-L
+
+Name: PETSc
+Description: Library to solve ODEs and algebraic equations
+Version: 3.9.4
+Cflags:  -I/cygdrive/z/code/third_party/petsc-3.9.4/include -I/cygdrive/z/code/third_party/petsc-3.9.4/win64_vs2017_debug/include -I/cygdrive/c/Microsoft_HPC_Pack_2012/Inc
+Libs: -L${libdir} -lpetsc
+Libs.private: -L/cygdrive/z/code/third_party/petsc-3.9.4/win64_vs2017_debug/lib /cygdrive/c/Microsoft_HPC_Pack_2012/Lib/amd64/msmpi.lib Gdi32.lib User32.lib Advapi32.lib Kernel32.lib Ws2_32.lib -lf2clapack -lf2cblas

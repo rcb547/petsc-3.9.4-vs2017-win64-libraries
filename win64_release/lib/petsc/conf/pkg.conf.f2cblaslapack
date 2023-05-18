@@ -1,0 +1,79 @@
+
+
+########################################################################################
+# f2cblaslapack: BLAS/LAPACK in C for being linked with PETSc.
+# Created by $PETSC_DIR/bin/maint/petsc/toclapack.sh script
+# You may obtain PETSc at http://www.mcs.anl.gov/petsc
+########################################################################################
+
+ALL: blas_lib lapack_lib
+
+########################################################################################
+# Specify options to compile and create libraries
+########################################################################################
+CC = /cygdrive/z/code/third_party/petsc-3.9.4/lib/petsc/bin/win32fe/win32fe cl
+COPTFLAGS  = -MD -wd4996 -O2
+CNOOPT =    -MD
+RM = /usr/bin/rm -f
+AR      = /usr/bin/ar
+AR_FLAGS      = cr
+LIB_SUFFIX = lib
+RANLIB = /usr/bin/ranlib
+TAR        = tar
+########################################################################################
+# By default, pick up the options from the PETSc configuration files
+########################################################################################
+BLASLAPACK_TYPE  = F2CBLASLAPACK
+
+
+########################################################################################
+# compile the source files and create the blas and lapack libs
+########################################################################################
+
+BLAS_LIB_NAME       = libf2cblas.$(LIB_SUFFIX)
+LAPACK_LIB_NAME     = libf2clapack.$(LIB_SUFFIX)
+MAKE_OPTIONS        =  CC="$(CC)" COPTFLAGS="$(COPTFLAGS)" CNOOPT="$(CNOOPT)" AR="$(AR)" AR_FLAGS="$(AR_FLAGS)" RM="$(RM)"
+MAKE_OPTIONS_BLAS   = $(MAKE_OPTIONS) LIBNAME="$(BLAS_LIB_NAME)"
+MAKE_OPTIONS_LAPACK = $(MAKE_OPTIONS) LIBNAME="$(LAPACK_LIB_NAME)"
+
+blas_lib:
+	-@cd blas;   $(MAKE) lib $(MAKE_OPTIONS_BLAS)
+	-@$(RANLIB) $(BLAS_LIB_NAME)
+
+lapack_lib:
+	-@cd lapack; $(MAKE) lib $(MAKE_OPTIONS_LAPACK)
+	-@$(RANLIB) $(LAPACK_LIB_NAME)
+
+single:
+	-@cd blas;   $(MAKE) single $(MAKE_OPTIONS_BLAS)
+	-@cd lapack; $(MAKE) single $(MAKE_OPTIONS_LAPACK)
+	-@$(RANLIB) $(BLAS_LIB_NAME) $(LAPACK_LIB_NAME)
+
+double:
+	-@cd blas;   $(MAKE) double $(MAKE_OPTIONS_BLAS)
+	-@cd lapack; $(MAKE) double $(MAKE_OPTIONS_LAPACK)
+	-@$(RANLIB) $(BLAS_LIB_NAME) $(LAPACK_LIB_NAME)
+
+quad:
+	-@cd blas;   $(MAKE) quad $(MAKE_OPTIONS_BLAS)
+	-@cd lapack; $(MAKE) quad $(MAKE_OPTIONS_LAPACK)
+	-@$(RANLIB) $(BLAS_LIB_NAME) $(LAPACK_LIB_NAME)
+
+half:
+	-@cd blas;   $(MAKE) half $(MAKE_OPTIONS_BLAS)
+	-@cd lapack; $(MAKE) half $(MAKE_OPTIONS_LAPACK)
+	-@$(RANLIB) $(BLAS_LIB_NAME) $(LAPACK_LIB_NAME)
+
+cleanblaslapck:
+	$(RM) */*.o
+
+cleanlib:
+	$(RM) ./*.a ./*.lib
+
+########################################################################################
+# Target to create the f2cblaslapack distribution - using gnu-tar
+########################################################################################
+dist: cleanblaslapck cleanlib
+	cd ..; 	$(RM) f2cblaslapack.tar.gz; \
+	$(TAR) --create --gzip --file f2cblaslapack.tar.gz f2cblaslapack
+
